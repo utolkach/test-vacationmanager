@@ -1,0 +1,393 @@
+{
+	"info": {
+		"_postman_id": "ef200854-2eff-44ae-bbd2-e408399b357a",
+		"name": "adform-vacation-manager",
+		"description": "# Introduction\nThis API provides a number of actions for managing employees and their vacations\n\n# Authentication\nUnfortunately there is no Authorizaton yet\n\n# Error Codes\n200 OK, 404 NotFound and 400 BadRequest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"_postman_id": "561a4a73-8089-4463-99e0-efcb9821b3fc",
+			"name": "EmployeeSearch",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer p95LLU5tiUljwQLRuO8KD2vS88BDNAMOA6joS2TH3fz7-Kgig9-DYwB3YQS55lmj-9KY3FkqBF14vmiysVE0kauqpZ4COS17y67FFIyVGZlc5hLRtinfqrpeBc05Bm7kVzfFHNmExz09yqdzx9m-2fOz5sDz6OVr34YrF45cNjO8V-OznIe9vIZn50G9qf0RSTCvkwg41RO-pOTpxX-d0qCLtSnMyEQqZcGMOETq-BA"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:49839/api/employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49839",
+					"path": [
+						"api",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "1866a9ae-8e1c-431b-b5f3-04f68b498441",
+			"name": "EmployeeCreate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer -L6jY8K_yLAFuJsFK4lFTVoLWz-BNxzqQgPWy3dYhs9DrW1RpljRa6bYNG9Yp_dk7AgazG7XQ5SvD_bkHMFzYP2DBNTruunKGcHIaMjoodRdMjaroK7-R4PGBZHSUC7-Zs8quDOtUERqxOippWTIvrfpJe09Scvq4qZhcDXTTOevajxL_XPui4kltQz6B2MYMo0tMZLuSiNER746NXTNVfy9Zy-s0W_l_V-y3WnG4_Y"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"FirstName\": \"John\",\r\n\t\"LastName\": \"Doe\",\r\n\t\"MiddleName\": \"Re\",\r\n\t\"PositionId\": \"1bf43b9e-b398-e811-9de4-902b3468c659\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:49839/api/employees/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49839",
+					"path": [
+						"api",
+						"employees",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "8eb6f165-f5e4-439c-905b-a5f402da3aa8",
+			"name": "PositionsGet",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:49839/api/positions/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49839",
+					"path": [
+						"api",
+						"positions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "e055411c-d274-4fed-b966-542ce07dff57",
+			"name": "EmployeeSearchWithSorting",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:49839/api/employees?filter=boss&sortField=asd&desc=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49839",
+					"path": [
+						"api",
+						"employees"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "boss"
+						},
+						{
+							"key": "sortField",
+							"value": "asd"
+						},
+						{
+							"key": "desc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "9b66d7c7-c51d-4b82-b4dc-aafdcb989f3e",
+			"name": "VacationCreate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"EmployeeId\": \"7f8614dc-f093-e811-9de4-902b3468c659\",\n\"Start\":\"2018-10-22\",\n\"End\": \"2018-10-24\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:49839/api/vacations/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49839",
+					"path": [
+						"api",
+						"vacations",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "4f2ccd94-c77e-48f3-bd26-08ec8c9cadbd",
+			"name": "VacationDelete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:49839/api/vacations/956d1172-1194-e811-9de4-902b3468c659",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49839",
+					"path": [
+						"api",
+						"vacations",
+						"956d1172-1194-e811-9de4-902b3468c659"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "7c07a505-ce61-40aa-910b-c73b53e79da9",
+			"name": "VacationUpdate",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"Start\":\"2017-01-11T00:00:00\",\n\"End\": \"2017-04-11T00:00:00\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:49839/api/vacations/956D1172-1194-E811-9DE4-902B3468C659",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49839",
+					"path": [
+						"api",
+						"vacations",
+						"956D1172-1194-E811-9DE4-902B3468C659"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "afb09806-e634-46cc-81aa-f0bfbb54e9fb",
+			"name": "VacationSearch",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:49839/api/vacations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49839",
+					"path": [
+						"api",
+						"vacations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "af33338e-1b05-48dd-8677-7803c09e016b",
+			"name": "VacationSearchExt",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:49839/api/vacations?start=2017-01-28&end=2017-06-21&sortfield=start&desc=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49839",
+					"path": [
+						"api",
+						"vacations"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "2017-01-28"
+						},
+						{
+							"key": "end",
+							"value": "2017-06-21"
+						},
+						{
+							"key": "sortfield",
+							"value": "start"
+						},
+						{
+							"key": "desc",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "a67b91a0-8a98-4dd3-8c88-939b827c1979",
+			"name": "AccountCreate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Login\":\"admin4\",\n\t\"Password\": \"admin\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:49839/api/account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49839",
+					"path": [
+						"api",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "5e82ee72-62cf-4c6c-98b6-bc80e16d7f66",
+			"name": "TokenGet",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"sessionValue": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"sessionValue": "admin",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "admin",
+							"sessionValue": "admin",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:49839/api/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49839",
+					"path": [
+						"api",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "6f403858-b1fe-4118-9d4e-822f16e5d317",
+			"name": "PositionCreate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer AAtGIxWjSmnWH-efbnx1s0_WUThF1zr2ddIuMB3carLVABn1cmDNqQt6rVxn_zOgP8Xf2u8a-NUBrbSHlMaNQQMcXbk0FX33GVr_hWODeTxAjz-uU5p_AtBVzbYeCW-dgMxm2He4IOdXcvvVuDxSIb6kLpEOd-b6r4cdSmo45-cCzpeve_mHPR8pS05obscre32-Hn6DC3i-jFAsMhSrj4zLUEwbpL0cF5VHGAFlDPE"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:49839/api/position/Director1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49839",
+					"path": [
+						"api",
+						"position",
+						"Director1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

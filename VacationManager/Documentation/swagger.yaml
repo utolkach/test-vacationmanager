@@ -1,0 +1,457 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: adform-vacation-manager
+  description: |-
+    # Introduction
+    Small application for managing employees and their vacations
+host: 'localhost:49839'
+basePath: /api
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /account:
+    post:
+      summary: User registration
+      description: Created a new user for getting token and accessing other api methods
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: Employee model
+          schema:
+            $ref: '#/definitions/UserModelRequest'
+      tags:
+        - Account
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/UserModelRequest'
+        '400':
+          description: Bad Request
+  /token:
+    post:
+      summary: Get access token
+      description: Gets a token for access to all other api methods
+      tags:
+        - Account
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: grant_type
+          in: header
+          description: value="password"
+          type: string
+          required: true
+          default: password
+        - name: username
+          in: header
+          description: user login
+          type: string
+          required: true
+        - name: password
+          in: header
+          description: user password
+          type: string
+          required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Invalid login or password
+  /positions:
+    get:
+      description: Returns a list of all available positions in organisations
+      summary: Get positions
+      tags:
+        - Positions
+      operationId: PositionsGet
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          description: Authorization token
+          type: string
+          required: true
+          default: Bearer %token%
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+      security: []
+  '/position/{title}':
+    post:
+      description: Creates a position with provided title
+      summary: Create position
+      tags: 
+        - Positions
+      parameters:
+        - name: title
+          in: path
+          required: true
+          type: string
+          description: Title of position
+        - name: Authorization
+          in: header
+          description: Authorization token
+          type: string
+          required: true
+          default: Bearer %token%
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+      security: []
+  /employees:
+    get:
+      description: Get employees with filtering and sorting by any field
+      summary: Get employees
+      tags:
+        - Employees
+      operationId: EmployeesGet2
+      produces:
+        - application/json
+      parameters:
+        - name: filter
+          in: query
+          required: false
+          type: string
+          description: 'Part of LastName, FirstName, MiddleName or Position'
+        - name: sortField
+          in: query
+          required: false
+          type: string
+          description: Field is used for sorting
+        - name: desc
+          in: query
+          required: false
+          type: boolean
+          description: >-
+            Order of sorting, if true - descending, if empty or false -
+            ascending
+        - name: Authorization
+          in: header
+          description: Authorization token
+          type: string
+          required: true
+          default: Bearer %token%
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+      security: []
+    post:
+      description: Creates new employee with provided data and selected position
+      summary: Create new employee
+      tags:
+        - Employees
+      operationId: EmployeesPost
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: Employee model
+          schema:
+            $ref: '#/definitions/EmployeeCreateRequest'
+        - name: Authorization
+          in: header
+          description: Authorization token
+          type: string
+          required: true
+          default: Bearer %token%
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmployeeCreateResponse'
+        '401':
+          description: Unauthorized
+      security: []
+  /vacations:
+    get:
+      description: Get vacations with filtering and sorting by any field
+      summary: Get vacations
+      tags:
+        - Vacation
+      operationId: VacationsGet2
+      produces:
+        - application/json
+      parameters:
+        - name: start
+          in: query
+          required: false
+          type: string
+          format: date-time
+          description: Start date of vacation
+        - name: end
+          in: query
+          required: false
+          type: string
+          format: date-time
+          description: End date of vacation
+        - name: sortfield
+          in: query
+          required: false
+          type: string
+          description: Field is used for sorting
+        - name: desc
+          in: query
+          required: false
+          type: boolean
+          description: >-
+            Order of sorting, if true - descending, if empty or false -
+            ascending
+        - name: Authorization
+          in: header
+          description: Authorization token
+          type: string
+          required: true
+          default: Bearer %token%
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+      security: []
+    post:
+      description: Creates vacation with defined start and end date for defined user
+      summary: Create vacation
+      tags:
+        - Vacation
+      operationId: VacationsPost
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: vacation model
+          schema:
+            $ref: '#/definitions/VacationCreateRequest'
+        - name: Authorization
+          in: header
+          description: Authorization token
+          type: string
+          required: true
+          default: Bearer %token%
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/VacationCreateResponse'
+        '401':
+          description: Unauthorized
+      security: []
+  '/vacations/{id}':
+    delete:
+      description: Deletes a vacation with given Id
+      summary: Delete vacation
+      tags:
+        - Vacation
+      operationId: Vacations956d11721194E8119de4902b3468c659Delete
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: Id of vacation to delete
+        - name: Authorization
+          in: header
+          description: Authorization token
+          type: string
+          required: true
+          default: Bearer %token%
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/VacationCreateResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      security: []
+    put:
+      description: Updates vacation with new data
+      summary: Update vacation
+      tags:
+        - Vacation
+      operationId: Vacations956D11721194E8119DE4902B3468C659Put
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: Id of vacation to update
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/VacationUpdateRequest'
+        - name: Authorization
+          in: header
+          description: Authorization token
+          type: string
+          required: true
+          default: Bearer %token%
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/VacationCreateResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      security: []
+definitions:
+  EmployeeCreateRequest:
+    title: EmployeeCreateRequest
+    example:
+      FirstName: John
+      LastName: Doe
+      MiddleName: R
+      PositionId: A0B64C39-EB93-E811-9DE4-902B3468C659
+    type: object
+    properties:
+      FirstName:
+        example: John
+        type: string
+      LastName:
+        example: Doe
+        type: string
+      MiddleName:
+        example: R
+        type: string
+      PositionId:
+        example: A0B64C39-EB93-E811-9DE4-902B3468C659
+        type: string
+    required:
+      - FirstName
+      - LastName
+      - MiddleName
+      - PositionId
+  EmployeeCreateResponse:
+    title: EmployeeCreateResponse
+    example:
+      FirstName: John
+      LastName: Doe
+      MiddleName: R
+      PositionId: A0B64C39-EB93-E811-9DE4-902B3468C659
+      Position: Director
+      Id: 0ca2f3a9-0a98-e811-9de4-902b3468c659
+    type: object
+    properties:
+      FirstName:
+        example: John
+        type: string
+      LastName:
+        example: Doe
+        type: string
+      MiddleName:
+        example: R
+        type: string
+      PositionId:
+        example: A0B64C39-EB93-E811-9DE4-902B3468C659
+        type: string
+      Position:
+        example: Director
+        type: string
+      Id:
+        example: 0ca2f3a9-0a98-e811-9de4-902b3468c659
+        type: string
+  VacationCreateRequest:
+    title: VacationCreateRequest
+    example:
+      EmployeeId: 7f8614dc-f093-e811-9de4-902b3468c659
+      Start: '2017-03-28T00:00:00'
+      End: '2017-01-21T00:00:00'
+    type: object
+    properties:
+      EmployeeId:
+        example: 7f8614dc-f093-e811-9de4-902b3468c659
+        type: string
+      Start:
+        example: '3/28/2017 12:00:00 AM'
+        type: string
+      End:
+        example: '1/21/2017 12:00:00 AM'
+        type: string
+    required:
+      - EmployeeId
+      - Start
+      - End
+  VacationCreateResponse:
+    title: VacationCreateResponse
+    example:
+      EmployeeId: 7f8614dc-f093-e811-9de4-902b3468c659
+      Start: '2017-03-28T00:00:00'
+      End: '2017-01-21T00:00:00'
+      Id: 0ca2f3a9-0a98-e811-9de4-902b3468c659
+    type: object
+    properties:
+      EmployeeId:
+        example: 7f8614dc-f093-e811-9de4-902b3468c659
+        type: string
+      Start:
+        example: '3/28/2017 12:00:00 AM'
+        type: string
+      End:
+        example: '1/21/2017 12:00:00 AM'
+        type: string
+      Id:
+        example: 0ca2f3a9-0a98-e811-9de4-902b3468c659
+        type: string
+    required:
+      - EmployeeId
+      - Start
+      - End
+  VacationUpdateRequest:
+    title: VacationUpdateRequest
+    example:
+      EmployeeId: 7f8614dc-f093-e811-9de4-902b3468c659
+      Start: '2017-01-11T00:00:00'
+      End: '2017-04-11T00:00:00'
+    type: object
+    properties:
+      Start:
+        example: '1/11/2017 12:00:00 AM'
+        type: string
+      End:
+        example: '4/11/2017 12:00:00 AM'
+        type: string
+      EmployeeId:
+        example: 7f8614dc-f093-e811-9de4-902b3468c659
+        type: string
+    required:
+      - Start
+      - End
+  UserModelRequest:
+    title: UserModelRequest
+    example:
+      login: admin
+      password: password
+    type: object
+    properties:
+      login:
+        type: string
+        example: admin
+      password:
+        type: string
+        example: password
