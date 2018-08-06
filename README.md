@@ -8,3 +8,4 @@
   * then you can create new Employees for that position
   * and finally you can create, edit and delete vacations for created employee
  
+All API documentation is stored in 'VacationManager\Documentation' folder 
